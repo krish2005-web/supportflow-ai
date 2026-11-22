@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10182b">
+  <link rel="icon" href="data:,">
+  <title>SupportFlow — ResolveIQ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles-v3.css?v=auth-fixed-20261120-1">
+  <script src="config.js?v=auth-fixed-20261120-1" defer></script>
+  <script src="app.js?v=auth-fixed-20261120-1" defer></script>
+</head>
+<body>
+  <div id="auth-screen" class="auth-screen">
+    <div class="auth-decoration auth-decoration-one"></div>
+    <div class="auth-decoration auth-decoration-two"></div>
+    <section class="auth-card" aria-labelledby="auth-title">
+      <a class="brand auth-brand" href="#" aria-label="SupportFlow">
+        <span class="brand-mark"><span></span><span></span><span></span></span>
+        <span class="brand-copy"><strong>supportflow</strong><small>POWERED BY RESOLVEIQ</small></span>
+      </a>
+      <div class="auth-kicker">CUSTOMER SUPPORT INTELLIGENCE</div>
+      <h1 id="auth-title">Welcome back<span class="accent-dot">.</span></h1>
+      <p class="auth-subtitle">One secure sign-in for your SupportFlow workspace. Your account permissions open the correct role-based dashboard automatically.</p>
+      <div class="auth-role-row" aria-label="Supported workspace roles">
+        <span class="auth-role-chip">Customer</span>
+        <span class="auth-role-chip">Support agent</span>
+        <span class="auth-role-chip">Administrator</span>
+      </div>
+      <div class="auth-tabs" role="tablist" aria-label="Account access">
+        <button class="auth-tab active" id="signin-tab" data-auth-tab="signin" type="button" role="tab" aria-selected="true">Sign in</button>
+        <button class="auth-tab" id="signup-tab" data-auth-tab="signup" type="button" role="tab" aria-selected="false">Create customer account</button>
+      </div>
+      <form id="signin-form" class="auth-form">
+        <label for="signin-email">Work email</label>
+        <input id="signin-email" name="email" type="email" autocomplete="username" placeholder="you@company.com" required>
+        <label for="signin-password">Password</label>
+        <div class="password-field"><input id="signin-password" name="password" type="password" autocomplete="current-password" placeholder="Enter your password" required><button type="button" class="password-toggle" data-toggle-password="signin-password" aria-label="Show password" title="Show password">👁</button></div>
+        <button class="button button-primary button-full" id="signin-button" type="submit">Sign in <span>→</span></button>
+        <p class="auth-alt-link"><button type="button" class="text-link" data-auth-tab="forgot" id="forgot-link">Forgot password?</button></p>
+      </form>
+      <form id="signup-form" class="auth-form" hidden>
+        <label for="signup-name">Full name</label>
+        <input id="signup-name" name="name" type="text" maxlength="100" autocomplete="name" placeholder="Your name" required>
+        <label for="signup-email">Email address</label>
+        <input id="signup-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+        <label for="signup-password">Password <span class="label-hint">At least 8 characters</span></label>
+        <div class="password-field"><input id="signup-password" name="password" type="password" minlength="8" maxlength="128" autocomplete="new-password" placeholder="Create a password" required><button type="button" class="password-toggle" data-toggle-password="signup-password" aria-label="Show password" title="Show password">👁</button></div>
+        <button class="button button-primary button-full" id="signup-button" type="submit">Create customer account <span>→</span></button>
+        <p class="form-note">Public registration creates a <strong>customer</strong> account only. To add an agent, sign in as admin → User management, or run <code>python -m scripts.create_agent</code>. Agent and admin accounts are provisioned by an administrator.</p>
+      </form>
+      
+      <form id="forgot-form" class="auth-form" hidden>
+        <label for="forgot-email">Account email</label>
+        <input id="forgot-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+        <button class="button button-primary button-full" id="forgot-button" type="submit">Send code to email <span>→</span></button>
+        <p class="form-note">We email a 6-digit code if the account exists. Codes expire in 5 minutes. If the server has SMTP configured, the code arrives by email. Locally without SMTP, check <code>docker compose logs api</code>.</p>
+        <p class="auth-alt-link"><button type="button" class="text-link" data-auth-tab="signin">Back to sign in</button></p>
+      </form>
+      <form id="otp-form" class="auth-form" hidden>
+        <label for="otp-email">Account email</label>
+        <input id="otp-email" name="email" type="email" autocomplete="email" required>
+        <label for="otp-code">6-digit code from email</label>
+        <input id="otp-code" name="otp" type="text" inputmode="numeric" maxlength="6" pattern="[0-9]{6}" placeholder="123456" required>
+        <button class="button button-primary button-full" id="otp-button" type="submit">Verify code <span>→</span></button>
+        <p class="auth-alt-link"><button type="button" class="text-link" data-auth-tab="forgot">Resend code</button> · <button type="button" class="text-link" data-auth-tab="signin">Sign in</button></p>
+      </form>
+      <form id="reset-form" class="auth-form" hidden>
+        <input type="hidden" id="reset-token" name="token" value="">
+        <label for="reset-password">New password <span class="label-hint">At least 8 characters</span></label>
+        <div class="password-field"><input id="reset-password" name="password" type="password" minlength="8" maxlength="128" autocomplete="new-password" required><button type="button" class="password-toggle" data-toggle-password="reset-password" aria-label="Show password" title="Show password">👁</button></div>
+        <label for="reset-password-confirm">Confirm password</label>
+        <div class="password-field"><input id="reset-password-confirm" name="password_confirm" type="password" minlength="8" maxlength="128" autocomplete="new-password" required><button type="button" class="password-toggle" data-toggle-password="reset-password-confirm" aria-label="Show password" title="Show password">👁</button></div>
+        <button class="button button-primary button-full" id="reset-button" type="submit">Update password <span>→</span></button>
+        <p class="auth-alt-link"><button type="button" class="text-link" data-auth-tab="signin">Back to sign in</button></p>
+      </form>
+
+      <p id="auth-error" class="form-error" role="alert" aria-live="polite"></p>
+      <div class="auth-footer"><span class="security-dot"></span> Secure access · Role-based permissions · ResolveIQ intelligence</div>
+    </section>
+    <div class="auth-side-note"><span>SUPPORTFLOW</span><b>·</b><span>BUILT FOR BETTER SUPPORT</span></div>
+  </div>
+
+  <div id="app-shell" class="app-shell" hidden>
+    <aside class="sidebar">
+      <a class="brand sidebar-brand" href="#home" aria-label="SupportFlow home">
+        <span class="brand-mark"><span></span><span></span><span></span></span>
+        <span class="brand-copy"><strong>supportflow</strong><small>POWERED BY RESOLVEIQ</small></span>
+      </a>
+      <div class="workspace-caption">WORKSPACE</div>
+      <nav id="main-nav" class="side-nav" aria-label="Main navigation"></nav>
+      <div class="sidebar-bottom">
+        <div
+  class="assistant-card"
+  role="button"
+  tabindex="0"
+  data-action="open-resolveiq"
+  title="Open ResolveIQ workspace"
+>
+  <div class="assistant-icon">✳</div>
+  <div>
+    <strong>ResolveIQ</strong>
+    <small>AI support intelligence</small>
+  </div>
+  <span class="live-dot" title="Available"></span>
+</div>
+        <div class="signed-in-card">
+          <div class="avatar" id="user-avatar">U</div>
+          <div class="signed-in-copy"><strong id="user-name">User</strong><small id="user-role">Customer</small></div>
+          <button id="logout-button" class="button button-small button-light signout-button" type="button" title="Sign out" aria-label="Sign out">Sign out</button>
+        </div>
+        <div class="sidebar-note">LOCAL DEVELOPMENT WORKSPACE<br><span>SupportFlow · ResolveIQ</span></div>
+      </div>
+    </aside>
+
+    <main class="main-area">
+      <header class="topbar">
+        <div class="breadcrumb"><span>Workspace</span><b>/</b><strong id="page-breadcrumb">Overview</strong></div>
+        <div class="topbar-actions">
+          <span id="api-status" class="api-status"><i></i><span>Checking API</span></span>
+          <span class="workspace-pill">LOCAL</span>
+          <div class="topbar-user"><span class="avatar avatar-small" id="topbar-avatar">U</span><span id="topbar-name">User</span></div>
+        </div>
+      </header>
+      <section id="page-content" class="page-content" aria-live="polite">
+        <div class="page-loading"><span class="spinner"></span> Loading workspace…</div>
+      </section>
+      <footer class="main-footer"><span>SUPPORTFLOW <b>·</b> POWERED BY RESOLVEIQ</span><span>AI-assisted support. Human-approved decisions.</span></footer>
+    </main>
+  </div>
+
+  <div id="toast-region" class="toast-region" aria-live="polite" aria-atomic="true"></div>
+  <div id="busy-overlay" class="busy-overlay" hidden><span class="spinner spinner-large"></span><strong id="busy-label">Working…</strong></div>
+</body>
+</html>

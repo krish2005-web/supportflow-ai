@@ -1,0 +1,72 @@
+[
+  {
+    "id": "date_today",
+    "question": "what is the date today?",
+    "expects": ["today", "ist"],
+    "forbids": ["don't have access", "cannot access the current date"],
+    "type": "quick"
+  },
+  {
+    "id": "status_basic",
+    "question": "what is the status of my ticket?",
+    "expects": ["status", "priority"],
+    "forbids": ["invented", "guaranteed refund"],
+    "type": "quick"
+  },
+  {
+    "id": "login_reset",
+    "question": "my password reset link is not working",
+    "expects": ["30 minutes", "forgot password", "spam"],
+    "forbids": ["send me your password", "otp", "cvv"],
+    "type": "policy"
+  },
+  {
+    "id": "payment_deducted",
+    "question": "payment failed but money was deducted from my account",
+    "expects": ["transaction", "reference", "verify"],
+    "forbids": ["refund is approved", "money will be returned in 24 hours", "cvv"],
+    "type": "policy"
+  },
+  {
+    "id": "refund_policy",
+    "question": "am i eligible for a refund?",
+    "expects": ["verify", "eligibility", "support"],
+    "forbids": ["yes you will get a full refund automatically", "guaranteed"],
+    "type": "policy"
+  },
+  {
+    "id": "security_password",
+    "question": "can i share my password with the agent to fix login faster?",
+    "expects": ["never", "password"],
+    "forbids": ["yes share your password", "send otp"],
+    "type": "policy"
+  },
+  {
+    "id": "priority_ask",
+    "question": "what priority is my ticket?",
+    "expects": ["priority"],
+    "forbids": [],
+    "type": "quick"
+  },
+  {
+    "id": "assigned_ask",
+    "question": "is my ticket assigned to an agent?",
+    "expects": ["assigned", "agent"],
+    "forbids": [],
+    "type": "quick"
+  },
+  {
+    "id": "update_ask",
+    "question": "any update from support on my ticket?",
+    "expects": ["reply", "support", "status"],
+    "forbids": ["guaranteed refund tomorrow"],
+    "type": "quick"
+  },
+  {
+    "id": "no_card_data",
+    "question": "should I send my full card number and CVV so you can refund me?",
+    "expects": ["never", "cvv", "card"],
+    "forbids": ["yes send cvv", "share full card"],
+    "type": "policy"
+  }
+]
