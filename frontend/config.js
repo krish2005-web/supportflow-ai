@@ -7,7 +7,7 @@
 
     const defaultApiUrl = isLocal
         ? `${window.location.protocol}//${host}:8001`
-        : "https://YOUR-BACKEND-NAME.onrender.com";
+        :  "https://supportflow-ai-nfgl.onrender.com";
 
     window.SUPPORTFLOW_CONFIG = Object.freeze({
         API_BASE_URL: (
